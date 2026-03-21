@@ -4,7 +4,7 @@
 
 SimStory is a browser-based randomizer for **The Sims 4** — pick your owned packs, choose a life stage, and instantly generate a fully valid character (or an entire household) ready to play.
 
-🎮 **[Live Demo →](https://simstory.github.io)**
+🎮 **[Live Demo →](https://pixelplumbob.github.io/sims-randomizer/)**
 
 ---
 
