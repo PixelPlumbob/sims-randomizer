@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimStory</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════ EXCLUSION DRAWER (slide from left) ═══════════ -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<aside class="exclusion-drawer" id="exclusion-drawer">
+  <div class="drawer-header">
+    <div>
+      <span class="drawer-title">Exclude from randomization</span>
+      <span class="drawer-subtitle">Checked items will never be picked</span>
+    </div>
+    <button class="btn-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body">
+    <!-- built by JS -->
+  </div>
+</aside>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<div class="layout">
+  <div class="main">
+
+    <h1>SimStory ✨</h1>
+    <p class="subtitle">Build a Sim you didn't plan.</p>
+    <p class="subtitle2">Pick your owned packs, choose a life stage, and get a fully valid character ready to play.</p>
+
+    <!-- Step 1 -->
+    <div class="setup-block">
+      <div class="setup-label">Step 1 — What to include</div>
+      <div class="toggle-group">
+        <label class="toggle-pill"><input type="checkbox" id="chk-aspiration" checked onchange="updateToggles()">Aspiration</label>
+        <label class="toggle-pill"><input type="checkbox" id="chk-occult"     checked onchange="updateToggles()">Life state</label>
+        <label class="toggle-pill"><input type="checkbox" id="chk-world"      checked onchange="updateToggles()">World</label>
+        <label class="toggle-pill"><input type="checkbox" id="chk-career"     checked onchange="updateToggles()">Career</label>
+        <label class="toggle-pill"><input type="checkbox" id="chk-relationship" checked onchange="updateToggles()">Marital status</label>
+        <label class="toggle-pill"><input type="checkbox" id="chk-kids"       checked onchange="updateToggles()">Kids</label>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="setup-block">
+      <div class="setup-label">Step 2 — Configure</div>
+      <div class="controls">
+        <div class="select-wrapper">
+          <label class="select-label" for="life-stage-select">Life stage</label>
+          <select id="life-stage-select" onchange="buildDrawer()">
+            <option value="infant">Infant</option>
+            <option value="toddler">Toddler</option>
+            <option value="child">Child</option>
+            <option value="teen">Teen</option>
+            <option value="young_adult">Young Adult</option>
+            <option value="adult" selected>Adult</option>
+            <option value="elder">Elder</option>
+          </select>
+        </div>
+        <button class="btn-packs" onclick="openPanel()">
+          🎮 Your Packs <span class="pack-count" id="pack-count">0</span>
+        </button>
+        <button class="btn-exclude" onclick="openDrawer()" id="btn-exclude">
+          🚫 Exclude <span class="exclude-count" id="exclude-count" style="display:none;"></span>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="handleGenerate()">🎲 Generate random Sim</button>
+
+    <div class="error-box" id="error-box"></div>
+
+    <!-- Lock hint -->
+    <div class="lock-hint" id="lock-hint" style="display:none;">
+      <span class="lock-hint-icon">💡</span>
+      Click <strong>🔓 Lock this</strong> above any section to pin it — locked sections won't re-roll.
+    </div>
+
+    <!-- Save -->
+    <div class="save-row" id="save-row" style="display:none;">
+      <button class="btn-save" id="btn-save" onclick="downloadNotebook()" style="display:none;">
+        📓 Save as Notebook
+      </button>
+    </div>
+
+    <!-- Sim cards -->
+    <div class="sim-cards-stack">
+      <div class="card" id="sim-card"></div>
+      <div class="card" id="spouse-card" style="display:none;"></div>
+      <div id="family-prompts"></div>
+      <div class="children-row" id="children-cards"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Pack panel (slide from right) -->
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+<div class="pack-panel" id="pack-panel">
+  <div class="panel-header">
+    <div><h2>Your Packs</h2><p>Deselect packs you don't own</p></div>
+    <button class="btn-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+  <div class="panel-footer">
+    <button class="btn-all"  onclick="selectAllPacks()">Select all</button>
+    <button class="btn-none" onclick="selectNoPacks()">Deselect all</button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="logic.js"></script>
+</body>
+</html>
